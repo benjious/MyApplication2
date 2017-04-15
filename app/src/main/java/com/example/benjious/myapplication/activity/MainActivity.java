@@ -25,7 +25,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 public class MainActivity extends AppCompatActivity
          {
-
+    //这是realease
     private MainFragment mMainFragment;
     public static final String TAG = "MainActivity xyz =====";
     private Drawer drawer;
@@ -65,10 +65,10 @@ public class MainActivity extends AppCompatActivity
 
         header = new AccountHeaderBuilder().withActivity(this)
                 .withCompactStyle(false)
-                .withHeaderBackground(R.drawable.header)
+                .withHeaderBackground(R.drawable.picture)
                 .addProfiles(new ProfileDrawerItem().withIcon(R.drawable.logo)
-                        .withEmail(getString(R.string.app_name))
-                        .withName(getString(R.string.app_name)))
+                        .withEmail(getString(R.string.my_email))
+                        .withName(getString(R.string.my_name)))
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean current) {
