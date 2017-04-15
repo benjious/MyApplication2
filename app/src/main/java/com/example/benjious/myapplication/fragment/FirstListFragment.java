@@ -188,8 +188,8 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
             mFirstAdapter.isShowFooter(false);
             mFirstAdapter.notifyDataSetChanged();
         }
-        View view = getActivity() == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.drawer_layout);
-        Snackbar.make(view, "加载数据失败", Snackbar.LENGTH_SHORT).show();
+      //  View view = getActivity() == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.drawer_layout);
+       // Snackbar.make(view, "加载数据失败", Snackbar.LENGTH_SHORT).show();
     }
 
 
