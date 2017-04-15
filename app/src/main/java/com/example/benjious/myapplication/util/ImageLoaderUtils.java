@@ -25,5 +25,6 @@ public class ImageLoaderUtils {
         }
         Glide.with(context).load(url).placeholder(R.mipmap.ic_image_loading)
                 .error(R.mipmap.ic_image_loadfail).crossFade().into(imageView);
+
     }
 }
