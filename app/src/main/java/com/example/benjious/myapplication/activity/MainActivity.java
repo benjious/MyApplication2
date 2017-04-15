@@ -1,18 +1,13 @@
 package com.example.benjious.myapplication.activity;
-
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.example.benjious.myapplication.R;
 import com.example.benjious.myapplication.fragment.MainFragment;
@@ -23,12 +18,13 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+         {
 
     private MainFragment mMainFragment;
     public static final String TAG = "MainActivity xyz =====";
@@ -85,7 +81,26 @@ public class MainActivity extends AppCompatActivity
                 .withToolbar(toolbar)
                 .withActionBarDrawerToggleAnimated(true)
                 .withAccountHeader(header)
-                .addDrawerItems()
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName(R.string.daily).withIcon(R.mipmap.ic_home).withIdentifier(R.mipmap.ic_home)
+                                .withTextColor( ContextCompat.getColor(this, R.color.text_color)),
+                        new PrimaryDrawerItem().withName(R.string.science).withIcon(R.mipmap.ic_science).withIdentifier(R.mipmap.ic_science)
+                                .withTextColor( ContextCompat.getColor(this, R.color.text_color)),
+                        new PrimaryDrawerItem().withName(R.string.news).withIcon(R.mipmap.ic_news).withIdentifier(R.mipmap.ic_news)
+                                .withTextColor( ContextCompat.getColor(this, R.color.text_color)),
+                        new PrimaryDrawerItem().withName(R.string.reading).withIcon(R.mipmap.ic_reading).withIdentifier(R.mipmap.ic_reading)
+                                .withTextColor(ContextCompat.getColor(this, R.color.text_color)),
+                        new PrimaryDrawerItem().withName(R.string.collection).withIcon(R.mipmap.ic_collect_grey).withIdentifier(R.mipmap.ic_collect_grey)
+                                .withTextColor( ContextCompat.getColor(this, R.color.text_color)),
+                        new SectionDrawerItem().withName(R.string.app_name).withTextColor(ContextCompat.getColor(this, R.color.text_color)),
+                        new SecondaryDrawerItem().withName( R.string.text_night_mode)
+                                .withIcon(R.mipmap.ic_night).withIdentifier(R.mipmap.ic_night)
+                                .withTextColor( ContextCompat.getColor(this, R.color.text_light)),
+                        new SecondaryDrawerItem().withName(R.string.setting).withIcon(R.mipmap.ic_setting).withIdentifier(R.mipmap.ic_setting)
+                                .withTextColor(ContextCompat.getColor(this,R.color.text_light)),
+                        new SecondaryDrawerItem().withName(R.string.about).withIcon(R.mipmap.ic_about).withIdentifier(R.mipmap.ic_about)
+                                .withTextColor(ContextCompat.getColor(this,R.color.text_light))
+                )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -127,29 +142,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-
-        return true;
-    }
 
 
 }

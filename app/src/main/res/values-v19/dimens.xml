@@ -7,5 +7,5 @@
     <dimen name="fab_margin">16dp</dimen>
 
 
-    <dimen name="my_toolbar_padding">30dp</dimen>
+    <dimen name="my_toolbar_padding">25dp</dimen>
 </resources>
