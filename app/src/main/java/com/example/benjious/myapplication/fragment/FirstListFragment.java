@@ -1,9 +1,12 @@
 package com.example.benjious.myapplication.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.benjious.myapplication.R;
+import com.example.benjious.myapplication.activity.FirstDetilActivity;
 import com.example.benjious.myapplication.adapter.FirstAdapter;
 import com.example.benjious.myapplication.bean.DataBean;
 import com.example.benjious.myapplication.api.Urls;
@@ -43,18 +47,31 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
 
     public static final String TAG = " FirstListFragment xyz ";
 
+    //----------------------------------------------
 
+    /**
+     * 下面是两个Listener
+     *
+     */
     private FirstAdapter.OnItemClickListener mOnItemClickListener = new FirstAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
             /**
-             * 当我按下新闻条目,
+             * 当我按下新闻条目,这个传递数据给DetailActivity
              * 1.获取基本信息,就是bean
              * 2.根据bean,去加载另外的界面
              *
              */
-            DataBean dataBean = mFirstAdapter.getItem(position);
-            Log.d(TAG, "xyz  onItemClick: 点击的数据======" + dataBean.getTitle());
+            DataBean data = mFirstAdapter.getItem(position);
+            System.out.println("点击的数据======" + data.getTitle());
+            Intent intent = new Intent(getActivity(), FirstDetilActivity.class);
+            intent.putExtra("news", data);
+
+            View intoView = view.findViewById(R.id.detail_img);
+            ActivityOptionsCompat options =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                            intoView, getString(R.string.transition_news_img));
+            ActivityCompat.startActivity(getActivity(),intent,options.toBundle());
 
 
         }
@@ -77,8 +94,6 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
             super.onScrollStateChanged(recyclerView, newState);
             //当没有滚动 并且 到达最后一个条目的时候
             if (newState == RecyclerView.SCROLL_STATE_IDLE && mLastVisibleItemPostion + 1 == mFirstAdapter.getItemCount() && mFirstAdapter.isShowFooter()) {
-                //  loadData(type,20)
-                //pageIndex : 20          20-40
                 mFirstPresenter.loadData(type, pageIndex + Urls.PAZE_SIZE);
             }
 
@@ -89,18 +104,6 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
     };
 
 
-//    @TargetApi(19)
-//    private void setTranslucentStatus(boolean on) {
-//        Window win = getActivity().getWindow();
-//        WindowManager.LayoutParams winParams = win.getAttributes();
-//        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-//        if (on) {
-//            winParams.flags |= bits;
-//        } else {
-//            winParams.flags &= ~bits;
-//        }
-//        win.setAttributes(winParams);
-//    }
 
     //-------------------------------------------------------------------
     public static FirstListFragment newInstance(int type) {
@@ -169,7 +172,6 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
         //把数据放进去
         mData.addAll(mList);
         if (pageIndex == 0) {
-            Log.d(TAG, "xyz  addData: ??????是否调用");
             mFirstAdapter.setData(mData);
         } else {
             if (mList.size() == 0 || mList == null) {
@@ -179,7 +181,6 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
         }
         // pageIndex : 0 -- 20  40-20
         pageIndex += Urls.PAZE_SIZE;
-        Log.d(TAG, "xyz  addData: =======addAll() ===");
     }
 
     @Override
@@ -188,8 +189,8 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
             mFirstAdapter.isShowFooter(false);
             mFirstAdapter.notifyDataSetChanged();
         }
-      //  View view = getActivity() == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.drawer_layout);
-       // Snackbar.make(view, "加载数据失败", Snackbar.LENGTH_SHORT).show();
+        View view = getActivity() == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.main_content);
+        Snackbar.make(view, "加载数据失败", Snackbar.LENGTH_SHORT).show();
     }
 
 

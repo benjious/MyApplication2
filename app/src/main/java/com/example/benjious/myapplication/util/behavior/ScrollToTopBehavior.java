@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 /**
  * Created by Benjious on 2017/3/22.

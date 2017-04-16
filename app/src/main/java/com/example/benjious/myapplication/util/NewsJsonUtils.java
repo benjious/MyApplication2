@@ -1,6 +1,7 @@
 package com.example.benjious.myapplication.util;
 
 import com.example.benjious.myapplication.bean.DataBean;
+import com.example.benjious.myapplication.bean.DataDetilBean;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -52,5 +53,21 @@ public class NewsJsonUtils {
        }
        return beans;
    }
+
+    public static DataDetilBean readJsonNewsDetailBeans(String res, String docId) {
+        DataDetilBean newsDetailBean = null;
+        try {
+            JsonParser parser = new JsonParser();
+            JsonObject jsonObj = parser.parse(res).getAsJsonObject();
+            JsonElement jsonElement = jsonObj.get(docId);
+            if(jsonElement == null) {
+                return null;
+            }
+            newsDetailBean = JsonUtils.deserialize(jsonElement.getAsJsonObject(), DataDetilBean.class);
+        } catch (Exception e) {
+            // LogUtils.e(TAG, "readJsonNewsBeans error" , e);
+        }
+        return newsDetailBean;
+    }
 
 }
