@@ -26,7 +26,7 @@ public class MainFragment extends Fragment {
     private Context context;
 
     private FirstListFragment mFirstListFragment;
-    private GuolinFragment guokrFragment;
+    private GuoKeFragment guokrFragment;
     public static final int ONE = 0;
 
     @Override
@@ -34,7 +34,7 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.context=getActivity();
         mFirstListFragment = FirstListFragment.newInstance(ONE);
-        guokrFragment = new GuolinFragment();
+        guokrFragment = new GuoKeFragment();
 
     }
 

@@ -1572,7 +1572,7 @@ ListPopupWindow_android_dropDownVerticalOffset	.\app\build\generated\source\r\de
 ListPopupWindow_android_dropDownVerticalOffset	.\app\build\generated\source\r\debug\android\support\v7\appcompat\R.java	/^        public static final int ListPopupWindow_android_dropDownVerticalOffset = 1;$/;"	f	class:R.styleable
 ListPopupWindow_android_dropDownVerticalOffset	.\app\build\generated\source\r\debug\com\example\benjious\myapplication\R.java	/^        public static final int ListPopupWindow_android_dropDownVerticalOffset = 1;$/;"	f	class:R.styleable
 MainActivity	.\app\src\main\java\com\example\benjious\myapplication\activity\MainActivity.java	/^public class MainActivity extends AppCompatActivity$/;"	c
-MainAdapter	.\app\src\main\java\com\example\benjious\myapplication\adapter\MainAdapter.java	/^    public MainAdapter(FragmentManager fm, Context context, FirstListFragment firstListFragment, GuolinFragment guolinFragment) {$/;"	m	class:MainAdapter
+MainAdapter	.\app\src\main\java\com\example\benjious\myapplication\adapter\MainAdapter.java	/^    public MainAdapter(FragmentManager fm, Context context, FirstListFragment firstListFragment, GuolinFragment guoKeFragment) {$/;"	m	class:MainAdapter
 MainAdapter	.\app\src\main\java\com\example\benjious\myapplication\adapter\MainAdapter.java	/^public class MainAdapter extends FragmentPagerAdapter {$/;"	c
 MainFragment	.\app\src\main\java\com\example\benjious\myapplication\fragment\MainFragment.java	/^public class MainFragment extends Fragment {$/;"	c
 MainView	.\app\src\main\java\com\example\benjious\myapplication\view\MainView.java	/^public interface MainView {$/;"	i
