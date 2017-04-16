@@ -16,7 +16,7 @@
 
     </style>
 
-    <style name="AppTheme.NoActionBar"  parent="AppTheme">
+    <style name="AppTheme.NoActionBar" >
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -24,5 +24,12 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+
+    <!--用于项目主页-->
+    <style name="CollapsingToolbarTitleStyle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
 
 </resources>
