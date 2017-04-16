@@ -40,37 +40,9 @@ public class FirstDetilActivity extends BaseActivity implements FirstDetailView{
 
     @Override
     protected void loadViewLayout() {
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
-//            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
-//        }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-//            setTranslucentStatus(true);
-//           //  create our manager instance after the content view is set
-//            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-//            // enable status bar tint
-//            tintManager.setStatusBarTintEnabled(true);
-//            // set a custom tint color for all system bars
-//            tintManager.setStatusBarTintColor(Color.parseColor("#00000000"));
-//        }
-
         setContentView(R.layout.activity_first_detail);
     }
 
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
 
     @Override
     protected void findViewById() {
