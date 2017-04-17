@@ -20,11 +20,13 @@
             android:layout_gravity="center"/>
 
         <org.sufficientlysecure.htmltextview.HtmlTextView
+            android:paddingTop="48dp"
+            android:paddingEnd="12dp"
+            android:paddingStart="12dp"
             android:id="@+id/htNewsContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/skin_item_background"
-            android:padding="12dp"
             android:textAppearance="@android:style/TextAppearance.Medium"/>
 
     </LinearLayout>

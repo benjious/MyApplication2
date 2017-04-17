@@ -23,9 +23,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 
-public class MainActivity extends AppCompatActivity
-         {
+public class MainActivity extends AppCompatActivity {
     //这是realease
+    //870424311
     private MainFragment mMainFragment;
     public static final String TAG = "MainActivity xyz =====";
     private Drawer drawer;
