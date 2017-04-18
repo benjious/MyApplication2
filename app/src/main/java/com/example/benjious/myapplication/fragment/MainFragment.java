@@ -25,16 +25,16 @@ public class MainFragment extends Fragment {
     private MainAdapter adapter;
     private Context context;
 
-    private FirstListFragment mFirstListFragment;
-    private GuoKeFragment guokrFragment;
+    private NewsListFragment mNewsListFragment;
+    private DouBanMovieFragment guokrFragment;
     public static final int ONE = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.context=getActivity();
-        mFirstListFragment = FirstListFragment.newInstance(ONE);
-        guokrFragment = new GuoKeFragment();
+        mNewsListFragment = NewsListFragment.newInstance(ONE);
+        guokrFragment = new DouBanMovieFragment();
 
     }
 
@@ -86,7 +86,7 @@ public class MainFragment extends Fragment {
         adapter = new MainAdapter(
                 getChildFragmentManager(),
                 context,
-                mFirstListFragment,
+                mNewsListFragment,
                 guokrFragment
                 );
 

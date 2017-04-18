@@ -1,14 +1,11 @@
 package com.example.benjious.myapplication.activity;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -18,15 +15,21 @@ import com.example.benjious.myapplication.presenter.FirstDetailPresenterImpl;
 import com.example.benjious.myapplication.util.ImageLoaderUtils;
 import com.example.benjious.myapplication.view.FirstDetailView;
 import com.example.benjious.myapplication.view.statusbar.StatusBarUtil;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 /**
+ * "count": 20,
+ "start": 0,
+ "total": 250,
+ "subjects": [],
+ "title": "豆瓣电影Top250"
+ *
+ *
  * Created by Benjious on 2017/4/16.
  */
 
-public class FirstDetilActivity extends BaseActivity implements FirstDetailView{
+public class NewsDetailActivity extends BaseActivity implements FirstDetailView{
     private ImageView ivImage;
     // private Toolbar toolbar;
     private CollapsingToolbarLayout collapsing_toolbar;
@@ -40,7 +43,7 @@ public class FirstDetilActivity extends BaseActivity implements FirstDetailView{
 
     @Override
     protected void loadViewLayout() {
-        setContentView(R.layout.activity_first_detail);
+        setContentView(R.layout.fragment_news_detail);
     }
 
 
@@ -82,7 +85,7 @@ public class FirstDetilActivity extends BaseActivity implements FirstDetailView{
         collapsing_toolbar.setTitle(mData.getTitle());
         ImageLoaderUtils.display(getApplicationContext(), (ImageView) findViewById(R.id.detail_img),mData.getImgsrc());
         //下面初始化 Presenter 时，调用方法,实际上就通知model去获取数据
-        mfirstPresenter=new FirstDetailPresenterImpl(FirstDetilActivity.this,this);
+        mfirstPresenter=new FirstDetailPresenterImpl(NewsDetailActivity.this,this);
         mfirstPresenter.loadContent(mData.getDocid());
     }
 

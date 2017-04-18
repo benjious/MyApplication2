@@ -5648,7 +5648,7 @@ onItemClick	app\src\main\java\com\example\benjious\myapplication\adapter\FirstAd
 setData	app\src\main\java\com\example\benjious\myapplication\adapter\FirstAdapter.java	/^    public void setData(List<DataBean> dataBeen) {$/;"	m	class:FirstAdapter
 setOnItemClickListener	app\src\main\java\com\example\benjious\myapplication\adapter\FirstAdapter.java	/^    public  void setOnItemClickListener(OnItemClickListener onItemClickListener){$/;"	m	class:FirstAdapter
 setShowFooter	app\src\main\java\com\example\benjious\myapplication\adapter\FirstAdapter.java	/^    public void setShowFooter(boolean showFooter) {$/;"	m	class:FirstAdapter
-MainAdapter	app\src\main\java\com\example\benjious\myapplication\adapter\MainAdapter.java	/^    public MainAdapter(FragmentManager fm, Context context, FirstListFragment firstListFragment, GuolinFragment guoKeFragment) {$/;"	m	class:MainAdapter
+MainAdapter	app\src\main\java\com\example\benjious\myapplication\adapter\MainAdapter.java	/^    public MainAdapter(FragmentManager fm, Context context, FirstListFragment newsListFragment, GuolinFragment guoKeFragment) {$/;"	m	class:MainAdapter
 MainAdapter	app\src\main\java\com\example\benjious\myapplication\adapter\MainAdapter.java	/^public class MainAdapter extends FragmentPagerAdapter {$/;"	c
 com.example.benjious.myapplication.adapter	app\src\main\java\com\example\benjious\myapplication\adapter\MainAdapter.java	/^package com.example.benjious.myapplication.adapter;$/;"	p
 context	app\src\main\java\com\example\benjious\myapplication\adapter\MainAdapter.java	/^    private final Context context;$/;"	f	class:MainAdapter	file:

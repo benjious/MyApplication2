@@ -15,11 +15,11 @@ import java.util.List;
  * Created by Benjious on 2016/12/31.
  */
 
-public class FirstListFragmentImpl implements FirstPresenter,OnloadFirstDataListener {
+public class NewsListFragmentImpl implements FirstPresenter,OnloadFirstDataListener {
     public FirstView mFirstView;
     public FirstModel mFirstModel;
-    public static final String TAG="FirstListFragmentImpl  ";
-    public FirstListFragmentImpl(FirstView view) {
+    public static final String TAG="NewsListFragmentImpl  ";
+    public NewsListFragmentImpl(FirstView view) {
         this.mFirstView=view;
         this.mFirstModel=new FirstModeImpl();
 
@@ -52,20 +52,7 @@ public class FirstListFragmentImpl implements FirstPresenter,OnloadFirstDataList
 
     private String getUrl(int type, int page) {
         StringBuilder stringBuilder = new StringBuilder();
-//        switch (type) {
-//            case FirstFragment.ONE:
-//                stringBuilder.append(Urls.TOP_URL).append(Urls.TOP_ID);
-//                break;
-//            case FirstFragment.TWO:
-//                stringBuilder.append(Urls.COMMON_URL).append(Urls.NBA_ID);
-//                break;
-//            case FirstFragment.THREE:
-//                stringBuilder.append(Urls.COMMON_URL).append(Urls.CAR_ID);
-//                break;
-//            default:
-//                stringBuilder.append(Urls.TOP_URL).append(Urls.TOP_ID);
-//                break;
-//        }
+
                    stringBuilder.append(Urls.TOP_URL).append(Urls.TOP_ID);
 
         stringBuilder.append("/").append(page).append(Urls.END_URL);

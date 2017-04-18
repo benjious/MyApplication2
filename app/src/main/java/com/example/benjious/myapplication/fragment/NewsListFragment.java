@@ -18,11 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.benjious.myapplication.R;
-import com.example.benjious.myapplication.activity.FirstDetilActivity;
+import com.example.benjious.myapplication.activity.NewsDetailActivity;
 import com.example.benjious.myapplication.adapter.FirstAdapter;
 import com.example.benjious.myapplication.bean.DataBean;
 import com.example.benjious.myapplication.api.Urls;
-import com.example.benjious.myapplication.presenter.FirstListFragmentImpl;
+import com.example.benjious.myapplication.presenter.NewsListFragmentImpl;
 import com.example.benjious.myapplication.presenter.FirstPresenter;
 import com.example.benjious.myapplication.view.FirstView;
 
@@ -33,7 +33,7 @@ import java.util.List;
  * Created by Benjious on 2017/3/19.
  */
 
-public class FirstListFragment extends Fragment implements FirstView, SwipeRefreshLayout.OnRefreshListener {
+public class NewsListFragment extends Fragment implements FirstView, SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFloatingActionButton;
@@ -45,7 +45,6 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
     private LinearLayoutManager mLayoutManager;
     private FirstAdapter mFirstAdapter;
 
-    public static final String TAG = " FirstListFragment xyz ";
 
     //----------------------------------------------
 
@@ -64,7 +63,7 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
              */
             DataBean data = mFirstAdapter.getItem(position);
             System.out.println("点击的数据======" + data.getTitle());
-            Intent intent = new Intent(getActivity(), FirstDetilActivity.class);
+            Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
             intent.putExtra("news", data);
 
             View intoView = view.findViewById(R.id.detail_img);
@@ -92,7 +91,7 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            //当没有滚动 并且 到达最后一个条目的时候
+            //当没有滚动 并且 到达最后一个条目的时候,并且到了adapter存放的量
             if (newState == RecyclerView.SCROLL_STATE_IDLE && mLastVisibleItemPostion + 1 == mFirstAdapter.getItemCount() && mFirstAdapter.isShowFooter()) {
                 mFirstPresenter.loadData(type, pageIndex + Urls.PAZE_SIZE);
             }
@@ -106,9 +105,9 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
 
 
     //-------------------------------------------------------------------
-    public static FirstListFragment newInstance(int type) {
+    public static NewsListFragment newInstance(int type) {
         Bundle args = new Bundle(type);
-        FirstListFragment fragment = new FirstListFragment();
+        NewsListFragment fragment = new NewsListFragment();
         args.putInt("type", type);
         fragment.setArguments(args);
         return fragment;
@@ -117,7 +116,7 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirstPresenter = new FirstListFragmentImpl(this);
+        mFirstPresenter = new NewsListFragmentImpl(this);
         //保存数据
         type = getArguments().getInt("type");
 
@@ -126,7 +125,7 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.zhihu_list, container, false);
+        View view = inflater.inflate(R.layout.item_news_list, container, false);
         initView(view);
         onRefresh();
         return view;
@@ -141,6 +140,7 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_widget);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.my_toolbar_color);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mFloatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         mFloatingActionButton.setRippleColor(getResources().getColor(R.color.colorAccent));
@@ -174,6 +174,7 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
         if (pageIndex == 0) {
             mFirstAdapter.setData(mData);
         } else {
+            //如果服务器那个获取没有东西，设置标志到达底部
             if (mList.size() == 0 || mList == null) {
                 mFirstAdapter.isShowFooter(false);
             }
@@ -201,6 +202,7 @@ public class FirstListFragment extends Fragment implements FirstView, SwipeRefre
         if (mData != null) {
             mData.clear();
         }
+        //这个没有判断什么，直接进入加载通道
         mFirstPresenter.loadData(type, pageIndex);
 
     }

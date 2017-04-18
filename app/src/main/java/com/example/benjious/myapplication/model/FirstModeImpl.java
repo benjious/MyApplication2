@@ -1,26 +1,23 @@
 package com.example.benjious.myapplication.model;
 
 
-import android.util.Log;
 
 import com.example.benjious.myapplication.bean.DataBean;
 import com.example.benjious.myapplication.api.Urls;
 import com.example.benjious.myapplication.bean.DataDetilBean;
+import com.example.benjious.myapplication.interfaze.OnloadFirstDataDetialListener;
 import com.example.benjious.myapplication.interfaze.OnloadFirstDataListener;
 import com.example.benjious.myapplication.util.NewsJsonUtils;
 import com.example.benjious.myapplication.util.OkHttpUtils;
 
 import java.util.List;
 
-import static android.R.id.list;
-import static android.R.string.ok;
 
 /**
  * 加载首页数据条目相关类
  * Created by Benjious on 2016/12/31.
  */
 public class FirstModeImpl implements FirstModel {
-    public static final String TAG = " FirstModeImpl xyz=====";
 
     @Override
     public void loadData(String url, final int type, final OnloadFirstDataListener dataListener) {
@@ -38,7 +35,6 @@ public class FirstModeImpl implements FirstModel {
             }
         };
         //这个才是真正的操作
-        Log.d(TAG, "xyz  loadData: " + url);
         OkHttpUtils.get(url, loadNewsCallback);
     }
 
@@ -69,13 +65,6 @@ public class FirstModeImpl implements FirstModel {
             }
         };
         OkHttpUtils.get(detailUrl, resultCallback);
-    }
-
-    public interface OnloadFirstDataDetialListener {
-        void onSuccess(DataDetilBean detailDate);
-
-        void onFailure(String str, Exception e);
-
     }
 
     private String getDetailUrl(String docId) {

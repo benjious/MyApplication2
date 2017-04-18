@@ -1,6 +1,7 @@
 package com.example.benjious.myapplication.model;
 
 
+import com.example.benjious.myapplication.interfaze.OnloadFirstDataDetialListener;
 import com.example.benjious.myapplication.interfaze.OnloadFirstDataListener;
 
 /**
@@ -8,6 +9,6 @@ import com.example.benjious.myapplication.interfaze.OnloadFirstDataListener;
  */
 public interface FirstModel {
     void  loadData(String url, int type, OnloadFirstDataListener dataListener);
-    void  loadDetailData(String url, FirstModeImpl.OnloadFirstDataDetialListener detialListener);
+    void  loadDetailData(String url, OnloadFirstDataDetialListener detialListener);
 
 }

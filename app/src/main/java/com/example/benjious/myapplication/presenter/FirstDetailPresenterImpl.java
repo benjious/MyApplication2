@@ -2,19 +2,17 @@ package com.example.benjious.myapplication.presenter;
 
 import android.content.Context;
 
-import com.example.benjious.myapplication.bean.DataBean;
 import com.example.benjious.myapplication.bean.DataDetilBean;
+import com.example.benjious.myapplication.interfaze.OnloadFirstDataDetialListener;
 import com.example.benjious.myapplication.model.FirstModeImpl;
 import com.example.benjious.myapplication.model.FirstModel;
 import com.example.benjious.myapplication.view.FirstDetailView;
-
-import java.util.List;
 
 /**
  * Created by Benjious on 2017/4/16.
  */
 
-public class FirstDetailPresenterImpl implements FirstDetailPresenter,FirstModeImpl.OnloadFirstDataDetialListener {
+public class FirstDetailPresenterImpl implements FirstDetailPresenter,OnloadFirstDataDetialListener {
     private Context mcontext;
     private FirstDetailView mfirstDetilView;
     private FirstModel mFirstModel;
