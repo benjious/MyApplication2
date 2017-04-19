@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.benjious.myapplication.R;
-import com.example.benjious.myapplication.bean.DataBean;
+import com.example.benjious.myapplication.bean.NewBean.DataBean;
 import com.example.benjious.myapplication.presenter.FirstDetailPresenterImpl;
 import com.example.benjious.myapplication.util.ImageLoaderUtils;
 import com.example.benjious.myapplication.view.FirstDetailView;

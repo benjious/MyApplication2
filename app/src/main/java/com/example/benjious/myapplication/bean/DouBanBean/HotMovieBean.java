@@ -1,5 +1,6 @@
 package com.example.benjious.myapplication.bean.DouBanBean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static android.R.attr.tag;
@@ -8,7 +9,7 @@ import static android.R.attr.tag;
  * Created by Benjious on 2017/4/17.
  */
 
-public class HotMovieBean {
+public class HotMovieBean implements Serializable{
     /**
      * count : 20
      * start : 0

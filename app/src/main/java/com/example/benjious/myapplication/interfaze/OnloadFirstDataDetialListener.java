@@ -1,6 +1,6 @@
 package com.example.benjious.myapplication.interfaze;
 
-import com.example.benjious.myapplication.bean.DataDetilBean;
+import com.example.benjious.myapplication.bean.NewBean.DataDetilBean;
 
 /**
  * Created by Benjious on 2017/4/17.

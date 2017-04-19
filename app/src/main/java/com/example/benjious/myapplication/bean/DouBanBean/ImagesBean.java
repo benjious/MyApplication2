@@ -1,9 +1,11 @@
 package com.example.benjious.myapplication.bean.DouBanBean;
 
+import java.io.Serializable;
+
 /**
  * Created by Benjious on 2017/4/17.
  */
-public class ImagesBean {
+public class ImagesBean implements Serializable {
 
     /**
      * small : http://img7.doubanio.com/view/movie_poster_cover/ipst/public/p480747492.webp

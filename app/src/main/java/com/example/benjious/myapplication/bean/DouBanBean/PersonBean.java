@@ -1,10 +1,12 @@
 package com.example.benjious.myapplication.bean.DouBanBean;
 
+import java.io.Serializable;
+
 /**
  * Created by Benjious on 2017/4/17.
  */
 
-public class PersonBean {
+public class PersonBean implements Serializable{
     /**
      * alt : https://movie.douban.com/celebrity/1054521/
      * avatars : {"small":"http://img7.doubanio.com/img/celebrity/small/17525.jpg","large":"http://img7.doubanio.com/img/celebrity/large/17525.jpg","medium":"http://img7.doubanio.com/img/celebrity/medium/17525.jpg"}

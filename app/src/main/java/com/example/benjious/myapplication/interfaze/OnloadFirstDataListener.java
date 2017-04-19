@@ -1,7 +1,7 @@
 package com.example.benjious.myapplication.interfaze;
 
 
-import com.example.benjious.myapplication.bean.DataBean;
+import com.example.benjious.myapplication.bean.NewBean.DataBean;
 
 import java.util.List;
 

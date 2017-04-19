@@ -17,6 +17,7 @@
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         app:contentInsetStart="0dp"
+        android:elevation="5dp"
         app:layout_scrollFlags="enterAlways|scroll"
         app:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"

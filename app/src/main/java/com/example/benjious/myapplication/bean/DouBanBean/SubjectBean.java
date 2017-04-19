@@ -1,5 +1,6 @@
 package com.example.benjious.myapplication.bean.DouBanBean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by Benjious on 2017/4/17.
  */
 
-public class SubjectBean {
+public class SubjectBean implements Serializable {
     /**
      * rating : {}
      * genres : []

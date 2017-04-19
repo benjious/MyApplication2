@@ -1,9 +1,11 @@
 package com.example.benjious.myapplication.bean.DouBanBean;
 
+import java.io.Serializable;
+
 /**
  * Created by Benjious on 2017/4/17.
  */
-public class RatingBean {
+public class RatingBean implements Serializable{
 
     /**
      * max : 10

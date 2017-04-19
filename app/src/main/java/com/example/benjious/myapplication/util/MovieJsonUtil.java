@@ -1,18 +1,12 @@
 package com.example.benjious.myapplication.util;
 
-import com.example.benjious.myapplication.bean.DataBean;
-import com.example.benjious.myapplication.bean.DataDetilBean;
 import com.example.benjious.myapplication.bean.DouBanBean.SubjectBean;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

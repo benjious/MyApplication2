@@ -1,6 +1,5 @@
 package com.example.benjious.myapplication.interfaze;
 
-import com.example.benjious.myapplication.bean.DataBean;
 import com.example.benjious.myapplication.bean.DouBanBean.SubjectBean;
 
 import java.util.List;

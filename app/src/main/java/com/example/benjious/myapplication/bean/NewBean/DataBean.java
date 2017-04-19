@@ -1,4 +1,4 @@
-package com.example.benjious.myapplication.bean;
+package com.example.benjious.myapplication.bean.NewBean;
 
 import java.io.Serializable;
 

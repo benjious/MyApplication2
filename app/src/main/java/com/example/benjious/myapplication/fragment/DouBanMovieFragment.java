@@ -1,10 +1,14 @@
 package com.example.benjious.myapplication.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,18 +17,22 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.benjious.myapplication.R;
+import com.example.benjious.myapplication.activity.DouBanDetailActivity;
 import com.example.benjious.myapplication.adapter.DouBanAdapter;
 import com.example.benjious.myapplication.api.ConstantsImageUrl;
+import com.example.benjious.myapplication.api.Urls;
 import com.example.benjious.myapplication.bean.DouBanBean.SubjectBean;
 import com.example.benjious.myapplication.presenter.DouBanListPresenter;
 import com.example.benjious.myapplication.presenter.DouBanPresenterImpl;
 import com.example.benjious.myapplication.util.ImgLoadUtil;
 import com.example.benjious.myapplication.view.DouBanView;
-import com.example.benjious.myapplication.view.FirstView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.type;
+import static android.media.CamcorderProfile.get;
 
 /**
  * Created by Benjious on 2017/3/19.
@@ -36,12 +44,36 @@ public class DouBanMovieFragment extends Fragment implements DouBanView, DouBanA
     private DouBanAdapter mDouBanAdapter;
     private ArrayList<SubjectBean> mSubjectBeen;
     private DouBanListPresenter mDouBanListPresenter;
+    private LinearLayoutManager mLayoutManager;
+    private boolean isFirstTime = true;
+
     public static DouBanMovieFragment newInstance() {
         Bundle args = new Bundle();
         DouBanMovieFragment fragment = new DouBanMovieFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
+    public RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
+        private int mLastVisibleItemPosition;//最后一个角标位置
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            mLastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            //正在滚动
+            if (newState == RecyclerView.SCROLL_STATE_IDLE && mLastVisibleItemPosition + 1 == mDouBanAdapter.getItemCount()
+                    && mDouBanAdapter.isShowFooter()) {
+                mDouBanListPresenter.loadData(0);
+            }
+        }
+    };
+
 
     @Nullable
     @Override
@@ -55,14 +87,16 @@ public class DouBanMovieFragment extends Fragment implements DouBanView, DouBanA
 
     private void initView(View view) {
         mXRecyclerView = (XRecyclerView) view.findViewById(R.id.list_one);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mXRecyclerView.setLayoutManager(layoutManager);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mXRecyclerView.setLayoutManager(mLayoutManager);
         mXRecyclerView.setPullRefreshEnabled(false);
         mXRecyclerView.setLoadingMoreEnabled(false);
         mXRecyclerView.setNestedScrollingEnabled(false);
         mXRecyclerView.setHasFixedSize(false);
+        mXRecyclerView.addOnScrollListener(mOnScrollListener);
         mDouBanAdapter = new DouBanAdapter(getActivity());
+        mDouBanAdapter.setOnItemClickListener(this);
         mXRecyclerView.setAdapter(mDouBanAdapter);
 
         if (mHeadView == null) {
@@ -105,19 +139,26 @@ public class DouBanMovieFragment extends Fragment implements DouBanView, DouBanA
             mSubjectBeen = new ArrayList<>();
         }
         mSubjectBeen.addAll(list);
-
-        if (list.size() == 0 | list == null) {
-            mDouBanAdapter.isShowFooter(false);
+        if (isFirstTime) {
+            mDouBanAdapter.setData(mSubjectBeen);
+            isFirstTime = false;
+        } else {
+            if (list.size() == 0) {
+                mDouBanAdapter.isShowFooter(false);
+            }
         }
-        mDouBanAdapter.setData(mSubjectBeen);
         mDouBanAdapter.notifyDataSetChanged();
 
     }
 
     @Override
     public void showLoadFail() {
+        if (isFirstTime) {
+            mDouBanAdapter.isShowFooter(false);
+            mDouBanAdapter.notifyDataSetChanged();
+        }
         View view = getActivity() == null ? mXRecyclerView.getRootView() : getActivity().findViewById(R.id.frameLayout);
-        Snackbar.make(view, "加载失败", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view, "加载失败", Snackbar.LENGTH_SHORT).show();
     }
 
     /**
@@ -128,6 +169,14 @@ public class DouBanMovieFragment extends Fragment implements DouBanView, DouBanA
      */
     @Override
     public void onItemClick(View view, int position) {
+        SubjectBean subjectBean = mDouBanAdapter.getItem(position);
+        Intent intent = new Intent(getActivity(), DouBanDetailActivity.class);
+        intent.putExtra("subjectBean", subjectBean);
 
+        View intoView = view.findViewById(R.id.ll_one_item);
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                        intoView, getString(R.string.transition_news_img));
+        ActivityCompat.startActivity(getActivity(),intent,options.toBundle());
     }
 }

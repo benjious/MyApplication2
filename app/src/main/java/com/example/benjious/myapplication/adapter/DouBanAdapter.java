@@ -95,7 +95,7 @@ public class DouBanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((ItemViewHolder) holder).mMovType.setText(revertType(dataBean.getGenres()));
             ((ItemViewHolder) holder).mMovRate.setText(String.valueOf(dataBean.getRating().getAverage()));
             ((ItemViewHolder) holder).lineColor.setBackgroundColor(randomColor());
-            ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mMovie_img, dataBean.getImages().getMedium());
+            ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mMovie_img, dataBean.getImages().getLarge());
 
             ViewHelper.setScaleX(holder.itemView, 0.8f);
             ViewHelper.setScaleY(holder.itemView, 0.8f);

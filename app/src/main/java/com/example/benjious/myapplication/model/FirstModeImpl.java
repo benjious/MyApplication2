@@ -2,9 +2,9 @@ package com.example.benjious.myapplication.model;
 
 
 
-import com.example.benjious.myapplication.bean.DataBean;
+import com.example.benjious.myapplication.bean.NewBean.DataBean;
 import com.example.benjious.myapplication.api.Urls;
-import com.example.benjious.myapplication.bean.DataDetilBean;
+import com.example.benjious.myapplication.bean.NewBean.DataDetilBean;
 import com.example.benjious.myapplication.interfaze.OnloadFirstDataDetialListener;
 import com.example.benjious.myapplication.interfaze.OnloadFirstDataListener;
 import com.example.benjious.myapplication.util.NewsJsonUtils;

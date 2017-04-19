@@ -2,7 +2,7 @@ package com.example.benjious.myapplication.presenter;
 
 import android.content.Context;
 
-import com.example.benjious.myapplication.bean.DataDetilBean;
+import com.example.benjious.myapplication.bean.NewBean.DataDetilBean;
 import com.example.benjious.myapplication.interfaze.OnloadFirstDataDetialListener;
 import com.example.benjious.myapplication.model.FirstModeImpl;
 import com.example.benjious.myapplication.model.FirstModel;

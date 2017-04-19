@@ -1,7 +1,7 @@
 package com.example.benjious.myapplication.util;
 
-import com.example.benjious.myapplication.bean.DataBean;
-import com.example.benjious.myapplication.bean.DataDetilBean;
+import com.example.benjious.myapplication.bean.NewBean.DataBean;
+import com.example.benjious.myapplication.bean.NewBean.DataDetilBean;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

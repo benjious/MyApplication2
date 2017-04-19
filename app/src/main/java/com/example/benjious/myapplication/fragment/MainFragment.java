@@ -45,7 +45,7 @@ public class MainFragment extends Fragment {
         initViews(view);
 
         setHasOptionsMenu(true);
-        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        //mTabLayout.setTabMode(TabLayout.GRAVITY_CENTER);
 
         // 当tab layout位置为果壳精选时，隐藏fab
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

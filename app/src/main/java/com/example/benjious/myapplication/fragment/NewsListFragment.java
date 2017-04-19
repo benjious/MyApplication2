@@ -12,7 +12,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import android.view.ViewGroup;
 import com.example.benjious.myapplication.R;
 import com.example.benjious.myapplication.activity.NewsDetailActivity;
 import com.example.benjious.myapplication.adapter.FirstAdapter;
-import com.example.benjious.myapplication.bean.DataBean;
+import com.example.benjious.myapplication.bean.NewBean.DataBean;
 import com.example.benjious.myapplication.api.Urls;
 import com.example.benjious.myapplication.presenter.NewsListFragmentImpl;
 import com.example.benjious.myapplication.presenter.FirstPresenter;
@@ -66,7 +65,7 @@ public class NewsListFragment extends Fragment implements FirstView, SwipeRefres
             Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
             intent.putExtra("news", data);
 
-            View intoView = view.findViewById(R.id.detail_img);
+            View intoView = view.findViewById(R.id.item_image);
             ActivityOptionsCompat options =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                             intoView, getString(R.string.transition_news_img));
@@ -101,8 +100,6 @@ public class NewsListFragment extends Fragment implements FirstView, SwipeRefres
 
 
     };
-
-
 
     //-------------------------------------------------------------------
     public static NewsListFragment newInstance(int type) {
