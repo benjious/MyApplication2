@@ -1,12 +1,14 @@
 package com.example.benjious.myapplication.bean.DouBanBean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 
 /**
  * Created by Benjious on 2017/4/17.
  */
 
-public class PersonBean implements Serializable{
+public class PersonBean implements Parcelable {
     /**
      * alt : https://movie.douban.com/celebrity/1054521/
      * avatars : {"small":"http://img7.doubanio.com/img/celebrity/small/17525.jpg","large":"http://img7.doubanio.com/img/celebrity/large/17525.jpg","medium":"http://img7.doubanio.com/img/celebrity/medium/17525.jpg"}
@@ -51,41 +53,6 @@ public class PersonBean implements Serializable{
         this.id = id;
     }
 
-    public static class AvatarsBean {
-        /**
-         * small : http://img7.doubanio.com/img/celebrity/small/17525.jpg
-         * large : http://img7.doubanio.com/img/celebrity/large/17525.jpg
-         * medium : http://img7.doubanio.com/img/celebrity/medium/17525.jpg
-         */
-
-        private String small;
-        private String large;
-        private String medium;
-
-        public String getSmall() {
-            return small;
-        }
-
-        public void setSmall(String small) {
-            this.small = small;
-        }
-
-        public String getLarge() {
-            return large;
-        }
-
-        public void setLarge(String large) {
-            this.large = large;
-        }
-
-        public String getMedium() {
-            return medium;
-        }
-
-        public void setMedium(String medium) {
-            this.medium = medium;
-        }
-    }
 
     @Override
     public String toString() {
@@ -96,4 +63,39 @@ public class PersonBean implements Serializable{
                 ", id='" + id + '\'' +
                 '}';
     }
+
+    public PersonBean() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.alt);
+        dest.writeParcelable(this.avatars, flags);
+        dest.writeString(this.name);
+        dest.writeString(this.id);
+    }
+
+    protected PersonBean(Parcel in) {
+        this.alt = in.readString();
+        this.avatars = in.readParcelable(AvatarsBean.class.getClassLoader());
+        this.name = in.readString();
+        this.id = in.readString();
+    }
+
+    public static final Creator<PersonBean> CREATOR = new Creator<PersonBean>() {
+        @Override
+        public PersonBean createFromParcel(Parcel source) {
+            return new PersonBean(source);
+        }
+
+        @Override
+        public PersonBean[] newArray(int size) {
+            return new PersonBean[size];
+        }
+    };
 }

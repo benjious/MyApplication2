@@ -1,6 +1,10 @@
 package com.example.benjious.myapplication.bean.DouBanBean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +12,7 @@ import java.util.List;
  * Created by Benjious on 2017/4/17.
  */
 
-public class SubjectBean implements Serializable {
+public class SubjectBean implements Parcelable {
     /**
      * rating : {}
      * genres : []
@@ -156,4 +160,57 @@ public class SubjectBean implements Serializable {
                 ", directors=" + directors +
                 '}';
     }
+
+    public SubjectBean() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.rating, flags);
+        dest.writeString(this.title);
+        dest.writeInt(this.collect_count);
+        dest.writeString(this.original_title);
+        dest.writeString(this.subtype);
+        dest.writeString(this.year);
+        dest.writeParcelable(this.images, flags);
+        dest.writeString(this.alt);
+        dest.writeString(this.id);
+        dest.writeStringList(this.genres);
+        dest.writeList(this.casts);
+        dest.writeList(this.directors);
+    }
+
+    protected SubjectBean(Parcel in) {
+        this.rating = in.readParcelable(RatingBean.class.getClassLoader());
+        this.title = in.readString();
+        this.collect_count = in.readInt();
+        this.original_title = in.readString();
+        this.subtype = in.readString();
+        this.year = in.readString();
+        this.images = in.readParcelable(ImagesBean.class.getClassLoader());
+        this.alt = in.readString();
+        this.id = in.readString();
+        this.genres = in.createStringArrayList();
+        this.casts = new ArrayList<PersonBean>();
+        in.readList(this.casts, PersonBean.class.getClassLoader());
+        this.directors = new ArrayList<PersonBean>();
+        in.readList(this.directors, PersonBean.class.getClassLoader());
+    }
+
+    public static final Creator<SubjectBean> CREATOR = new Creator<SubjectBean>() {
+        @Override
+        public SubjectBean createFromParcel(Parcel source) {
+            return new SubjectBean(source);
+        }
+
+        @Override
+        public SubjectBean[] newArray(int size) {
+            return new SubjectBean[size];
+        }
+    };
 }

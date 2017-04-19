@@ -170,13 +170,20 @@ public class DouBanMovieFragment extends Fragment implements DouBanView, DouBanA
     @Override
     public void onItemClick(View view, int position) {
         SubjectBean subjectBean = mDouBanAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(DouBanDetailActivity.SUB,subjectBean);
         Intent intent = new Intent(getActivity(), DouBanDetailActivity.class);
-        intent.putExtra("subjectBean", subjectBean);
-
-        View intoView = view.findViewById(R.id.ll_one_item);
-        ActivityOptionsCompat options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                        intoView, getString(R.string.transition_news_img));
-        ActivityCompat.startActivity(getActivity(),intent,options.toBundle());
+        intent.putExtras(bundle);
+        //这里记得加上这一句，不然传不过去
+        intent.setExtrasClassLoader(getActivity().getClassLoader());
+//        intent.putExtra("subjectBean", subjectBean);
+//
+//        View intoView = view.findViewById(R.id.ll_one_item);
+//        ActivityOptionsCompat options =
+//                ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+//                        intoView, getString(R.string.transition_news_img));
+//        ActivityCompat.startActivity(getActivity(),intent,options.toBundle());
+        //Intent intent = new Intent(getActivity(),DouBanDetailActivity.class);
+        startActivity(intent);
     }
 }

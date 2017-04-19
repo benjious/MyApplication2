@@ -1,11 +1,14 @@
 package com.example.benjious.myapplication.bean.DouBanBean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by Benjious on 2017/4/17.
  */
-public class RatingBean implements Serializable{
+public class RatingBean implements Parcelable {
 
     /**
      * max : 10
@@ -60,4 +63,39 @@ public class RatingBean implements Serializable{
                 ", min=" + min +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.max);
+        dest.writeDouble(this.average);
+        dest.writeString(this.stars);
+        dest.writeInt(this.min);
+    }
+
+    public RatingBean() {
+    }
+
+    protected RatingBean(Parcel in) {
+        this.max = in.readInt();
+        this.average = in.readDouble();
+        this.stars = in.readString();
+        this.min = in.readInt();
+    }
+
+    public static final Parcelable.Creator<RatingBean> CREATOR = new Parcelable.Creator<RatingBean>() {
+        @Override
+        public RatingBean createFromParcel(Parcel source) {
+            return new RatingBean(source);
+        }
+
+        @Override
+        public RatingBean[] newArray(int size) {
+            return new RatingBean[size];
+        }
+    };
 }
