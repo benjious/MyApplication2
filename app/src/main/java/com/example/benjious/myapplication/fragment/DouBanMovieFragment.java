@@ -169,7 +169,7 @@ public class DouBanMovieFragment extends Fragment implements DouBanView, DouBanA
      */
     @Override
     public void onItemClick(View view, int position) {
-        SubjectBean subjectBean = mDouBanAdapter.getItem(position);
+        SubjectBean subjectBean = mSubjectBeen.get(position-2);
         Bundle bundle = new Bundle();
         bundle.putParcelable(DouBanDetailActivity.SUB,subjectBean);
         Intent intent = new Intent(getActivity(), DouBanDetailActivity.class);

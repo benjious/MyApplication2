@@ -14,11 +14,15 @@ import com.example.benjious.myapplication.R;
 import com.example.benjious.myapplication.bean.DouBanBean.PersonBean;
 import com.example.benjious.myapplication.bean.DouBanBean.SubjectBean;
 import com.example.benjious.myapplication.util.ImageLoaderUtils;
+import com.example.benjious.myapplication.util.StringFormatTest;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import java.util.List;
 import java.util.Random;
+
+import static com.example.benjious.myapplication.util.StringFormatTest.revertPersonName;
+import static com.example.benjious.myapplication.util.StringFormatTest.revertType;
 
 
 /**
@@ -90,11 +94,11 @@ public class DouBanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (holder instanceof ItemViewHolder) {
             SubjectBean dataBean = mData.get(position);
             ((ItemViewHolder) holder).mMovName.setText(dataBean.getTitle());
-            ((ItemViewHolder) holder).mMovDao.setText(revertPersonName(dataBean.getDirectors()));
+            ((ItemViewHolder) holder).mMovDao.setText(StringFormatTest.revertPersonName(dataBean.getDirectors()));
             ((ItemViewHolder) holder).mMovZhu.setText(revertPersonName(dataBean.getCasts()));
             ((ItemViewHolder) holder).mMovType.setText(revertType(dataBean.getGenres()));
             ((ItemViewHolder) holder).mMovRate.setText(String.valueOf(dataBean.getRating().getAverage()));
-            ((ItemViewHolder) holder).lineColor.setBackgroundColor(randomColor());
+            ((ItemViewHolder) holder).lineColor.setBackgroundColor(StringFormatTest.randomColor());
             ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mMovie_img, dataBean.getImages().getLarge());
 
             ViewHelper.setScaleX(holder.itemView, 0.8f);
@@ -163,33 +167,5 @@ public class DouBanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.mOnItemClickListener = onItemClickListener;
     }
 
-    private String revertPersonName(List<PersonBean> date) {
-        StringBuilder stringBuffer = new StringBuilder();
-        if (date == null) {
-            return null;
-        }
-        for (PersonBean person : date) {
-            stringBuffer.append(person.getName()).append("/");
-        }
-        return stringBuffer.toString();
 
-    }
-
-    private String revertType(List<String> types) {
-        StringBuilder sb = new StringBuilder();
-        for (String type : types) {
-            sb.append(type).append("/");
-        }
-        return sb.toString();
-    }
-    /**
-     * 随机颜色
-     */
-    public static int randomColor() {
-        Random random = new Random();
-        int red = random.nextInt(150) + 50;//50-199
-        int green = random.nextInt(150) + 50;//50-199
-        int blue = random.nextInt(150) + 50;//50-199
-        return Color.rgb(red, green, blue);
-    }
 }

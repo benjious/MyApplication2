@@ -7,4 +7,8 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="my_toolbar_padding">0dp</dimen>
+    <dimen name="movie_detail_width">125dp</dimen>
+    <dimen name="movie_detail_height">165dp</dimen>
+    <dimen name="nav_bar_height">56dp</dimen>
+    <dimen name="nav_bar_height_more">58dp</dimen>
 </resources>

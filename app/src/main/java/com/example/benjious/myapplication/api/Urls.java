@@ -41,6 +41,6 @@ public class Urls {
     public static final String BASE_MEIZITU_URL = "http://www.mzitu.com/";
 
     //------------------------------------------------------------
- public static final String DOUBAN_HOT_MOVIE ="http://api.douban.com/v2/movie/in_theaters";
+ public static final String DOUBAN_HOT_MOVIE ="Http://api.douban.com/v2/movie/in_theaters";
 }
 
