@@ -2,13 +2,16 @@ package com.example.benjious.myapplication.activity;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +25,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.benjious.myapplication.R;
-import com.example.benjious.myapplication.adapter.DouBanAdapter;
+import com.example.benjious.myapplication.bean.DouBanBean.MovieDetail;
 import com.example.benjious.myapplication.bean.DouBanBean.SubjectBean;
 import com.example.benjious.myapplication.util.CommonUtils;
 import com.example.benjious.myapplication.util.ImageLoaderUtils;
@@ -31,8 +34,6 @@ import com.example.benjious.myapplication.util.test.StatusBarUtils;
 import com.example.benjious.myapplication.view.custom.MyNestedScrollView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import static com.example.benjious.myapplication.view.statusbar.StatusBarUtil.getStatusBarHeight;
@@ -43,40 +44,39 @@ import static com.example.benjious.myapplication.view.statusbar.StatusBarUtil.ge
  */
 
 public class DouBanDetailActivity extends AppCompatActivity {
-    @Bind(R.id.img_item_bg)
-    ImageView mImgItemBg;
-    @Bind(R.id.iv_one_photo)
-    ImageView mIvOnePhoto;
-    @Bind(R.id.tv_one_rating_rate)
-    TextView mTvOneRatingRate;
-    @Bind(R.id.tv_one_rating_number)
-    TextView mTvOneRatingNumber;
-    @Bind(R.id.tv_one_directors)
-    TextView mTvOneDirectors;
-    @Bind(R.id.tv_one_casts)
-    TextView mTvOneCasts;
-    @Bind(R.id.tv_one_genres)
-    TextView mTvOneGenres;
-    @Bind(R.id.tv_one_day)
-    TextView mTvOneDay;
-    @Bind(R.id.tv_one_origin_title)
-    TextView getTvOneTitle;
-    @Bind(R.id.ll_one_item)
-    LinearLayout mLlOneItem;
-    @Bind(R.id.ll_Header_view)
-    LinearLayout mLlHeaderView;
-    @Bind(R.id.tv_one_title)
-    TextView mTvOneTitle;
-    @Bind(R.id.xrv_cast)
-    XRecyclerView mXrvCast;
-    @Bind(R.id.nsv_scrollview)
-    MyNestedScrollView mNsvScrollview;
-    @Bind(R.id.iv_title_head_bg)
-    ImageView mIvTitleHeadBg;
-    @Bind(R.id.title_tool_bar)
-    Toolbar mTitleToolBar;
-    @Bind(R.id.rl_title_head)
-    RelativeLayout mRlTitleHead;
+    private ImageView mImgItemBg;
+
+    private ImageView mIvOnePhoto;
+
+    private TextView mTvOneRatingRate;
+
+    private TextView mTvOneRatingNumber;
+
+    private TextView mTvOneDirectors;
+
+    private TextView mTvOneCasts;
+
+    private TextView mTvOneGenres;
+
+    private TextView mTvOneDay;
+
+    private TextView getTvOneTitle;
+
+    private LinearLayout mLlOneItem;
+
+    private LinearLayout mLlHeaderView;
+
+    private TextView mTvOneTitle;
+
+    private XRecyclerView mXrvCast;
+
+    private MyNestedScrollView mNsvScrollview;
+
+    private ImageView mIvTitleHeadBg;
+
+    private Toolbar mTitleToolBar;
+
+    private RelativeLayout mRlTitleHead;
 
     public static final String TAG = "DBDA_xyz";
     public static final String SUB = "subjects";
@@ -91,12 +91,21 @@ public class DouBanDetailActivity extends AppCompatActivity {
     private String mMoreUrl;
     // 影片name
     private String mMovieName;
+    private MovieDetail mAdapter;
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.movie_detail, menu);
+        return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_text);
-        ButterKnife.bind(this);
+        initView();
         if (getIntent() != null) {
             subjectsBean = getIntent().getParcelableExtra(SUB);
         }
@@ -110,9 +119,37 @@ public class DouBanDetailActivity extends AppCompatActivity {
         loadMovieDetail();
     }
 
+    private void initView() {
+        mImgItemBg = (ImageView) findViewById(R.id.img_item_bg);
+        mIvOnePhoto = (ImageView) findViewById(R.id.iv_one_photo);
+        mTvOneRatingRate = (TextView) findViewById(R.id.tv_one_rating_rate);
+        mTvOneRatingNumber = (TextView) findViewById(R.id.tv_one_rating_number);
+        mTvOneDirectors = (TextView) findViewById(R.id.tv_one_directors);
+        mTvOneCasts = (TextView) findViewById(R.id.tv_one_casts);
+        mTvOneGenres = (TextView) findViewById(R.id.tv_one_genres);
+        mTvOneDay = (TextView) findViewById(R.id.tv_one_day);
+        getTvOneTitle = (TextView) findViewById(R.id.tv_one_origin_title);
+        mLlOneItem = (LinearLayout) findViewById(R.id.ll_one_item);
+        mLlHeaderView = (LinearLayout) findViewById(R.id.ll_Header_view);
+        mTvOneTitle = (TextView) findViewById(R.id.tv_one_title);
+        mXrvCast = (XRecyclerView) findViewById(R.id.xrv_cast);
+        mNsvScrollview = (MyNestedScrollView) findViewById(R.id.nsv_scrollview);
+        mIvTitleHeadBg = (ImageView) findViewById(R.id.iv_title_head_bg);
+        mTitleToolBar = (Toolbar) findViewById(R.id.title_tool_bar);
+        mRlTitleHead = (RelativeLayout) findViewById(R.id.rl_title_head);
+
+
+    }
+
+    /**
+     * 1.开启一个新线程加载数据
+     * 2.设置adapter
+     */
     private void loadMovieDetail() {
 
     }
+
+
 
     private void setTitleBar() {
         setSupportActionBar(mTitleToolBar);
@@ -144,7 +181,6 @@ public class DouBanDetailActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.actionbar_more:// 更多信息
-//                        WebViewActivity.loadUrl(MovieDetailActivity.this,mMoreUrl,mMovieName);
 
                         break;
                 }
@@ -156,10 +192,12 @@ public class DouBanDetailActivity extends AppCompatActivity {
     /**
      * 初始化滑动渐变
      */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void initSlideShapeTheme() {
 
-        setImgHeaderBg();
-
+        String url = subjectsBean.getImages().getMedium();
+        Log.d(TAG, "xyz  initSlideShapeTheme: 看这里 " + url);
+        setImgHeaderBg(mImgItemBg, url);
         // toolbar 的高
         int toolbarHeight = mTitleToolBar.getLayoutParams().height;
         Log.i(TAG, "toolbar_height:" + toolbarHeight);
@@ -233,13 +271,21 @@ public class DouBanDetailActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * 加载titlebar背景
-     */
-    private void setImgHeaderBg() {
-        if (subjectsBean != null) {
-//           final String url=subjectsBean.getImages().getMedium();
-            final String url= "http://img3.doubanio.com/view/movie_poster_cover/spst/public/p2443742358.jpg";
+
+    public void setHeaderData(SubjectBean headerData) {
+        ImageLoaderUtils.display(this, mIvOnePhoto, headerData.getImages().getMedium());
+
+        mTvOneRatingRate.setText(headerData.getRating().getStars());
+        mTvOneRatingNumber.setText(String.valueOf(headerData.getCollect_count()));
+        mTvOneDirectors.setText(StringFormatUtil.formatName(headerData.getDirectors()));
+        mTvOneCasts.setText(StringFormatUtil.formatName(headerData.getCasts()));
+        mTvOneGenres.setText(StringFormatUtil.formatGenres(headerData.getGenres()));
+        mTvOneDay.setText(headerData.getYear());
+        getTvOneTitle.setText(headerData.getOriginal_title());
+    }
+
+    private void setImgHeaderBg(ImageView imgView, String url) {
+        if (imgView != null) {
             // 高斯模糊背景 原来 参数：12,5  23,4
             Glide.with(this).load(url)
                     .error(R.drawable.stackblur_default)
@@ -249,34 +295,20 @@ public class DouBanDetailActivity extends AppCompatActivity {
                     return false;
                 }
 
+                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                 @Override
                 public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-//                    mTitleToolBar.setBackgroundColor(Color.TRANSPARENT);
-//                    mIvTitleHeadBg.setImageAlpha(0);
-//                    mIvTitleHeadBg.setVisibility(View.VISIBLE);
+                    mTitleToolBar.setBackgroundColor(Color.TRANSPARENT);
+                    mIvTitleHeadBg.setImageAlpha(0);
+                    mIvTitleHeadBg.setVisibility(View.VISIBLE);
 //                    Log.d(TAG, "xyz  onResourceReady: "+url);
                     return false;
                 }
-            }).into(mIvTitleHeadBg);
+            }).into(imgView);
         }
     }
 
-    public void setHeaderData(SubjectBean headerData) {
-//        binding.include.setSubjectsBean(headerData);
-//        // 立即改变UI，防止闪屏
-//        binding.include.executePendingBindings();
-
-        //里面小的，之前加载过的
-// ImageLoaderUtils.display(this, mImgItemBg, subjectsBean.getImages().getSmall());
-        //
-        ImageLoaderUtils.display(this, mIvOnePhoto, headerData.getImages().getLarge());
-
-        mTvOneRatingRate.setText(headerData.getRating().getStars());
-        mTvOneRatingNumber.setText(String.valueOf(headerData.getCollect_count()));
-        mTvOneDirectors.setText(StringFormatUtil.formatName(headerData.getDirectors()));
-        mTvOneCasts.setText(StringFormatUtil.formatName(headerData.getCasts()));
-        mTvOneGenres.setText(StringFormatUtil.formatGenres(headerData.getGenres()));
-        mTvOneDay.setText(headerData.getYear());
-        getTvOneTitle.setText(headerData.getOriginal_title());
+    public void setAdapter(MovieDetail adapter) {
+        mAdapter = adapter;
     }
 }

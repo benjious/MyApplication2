@@ -58,11 +58,18 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="评分："
+                        android:textColor="@color/colorRateRed"/>
+                    <TextView
                         android:id="@+id/tv_one_rating_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:textColor="@color/colorRateRed"/>
+
+
 
                     <TextView
                         android:id="@+id/tv_one_rating_number"
@@ -71,6 +78,11 @@
                         android:layout_marginLeft="5dp"
                         android:ellipsize="end"
                         android:lines="1"
+                        android:textColor="@color/colorWhite"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="人评分"
                         android:textColor="@color/colorWhite"/>
 
                 </LinearLayout>
@@ -112,6 +124,7 @@
 
                 <!--主演-->
                 <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
@@ -133,7 +146,9 @@
                 <!--类型-->
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
-                        android:layout_marginTop="2dp"
+                        tools:text="aaaaaaaa"
                         android:ellipsize="end"
                         android:textColor="@color/colorWhite"/>
                 </LinearLayout>
@@ -167,8 +182,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
-                        android:layout_marginTop="2dp"
                         android:ellipsize="end"
+                        tools:text="aaaaaaaaaaaaaaa"
                         android:textColor="@color/colorWhite"/>
 
                 </LinearLayout>
@@ -176,6 +191,7 @@
 
                 <!--原标题-->
                 <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
@@ -190,9 +206,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
-                        android:layout_marginTop="2dp"
                         android:ellipsize="end"
                         android:lines="2"
+                        tools:text="aaaaaaaa"
                         android:textColor="@color/colorWhite"/>
 
                 </LinearLayout>

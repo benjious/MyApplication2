@@ -24,7 +24,7 @@
                   android:theme="@style/AppTheme.NoActionBar"
             />
         <activity android:name=".activity.DouBanDetailActivity"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        android:theme="@style/DoubBanDetail"/>
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 
 import com.example.benjious.myapplication.R;
 import com.example.benjious.myapplication.bean.NewBean.DataBean;
-import com.example.benjious.myapplication.presenter.FirstDetailPresenterImpl;
+import com.example.benjious.myapplication.presenter.NewDetailPresenterImpl;
 import com.example.benjious.myapplication.util.ImageLoaderUtils;
 import com.example.benjious.myapplication.view.FirstDetailView;
 import com.example.benjious.myapplication.view.statusbar.StatusBarUtil;
@@ -35,7 +35,7 @@ public class NewsDetailActivity extends BaseActivity implements FirstDetailView{
     private CollapsingToolbarLayout collapsing_toolbar;
     private ProgressBar progress;
     private HtmlTextView htNewsContent;
-    private FirstDetailPresenterImpl mfirstPresenter;
+    private NewDetailPresenterImpl mfirstPresenter;
     private DataBean mData;//详情数据
     // private Toolbar toolbar;
     // 定义一个变量，来标识是否退出
@@ -85,7 +85,7 @@ public class NewsDetailActivity extends BaseActivity implements FirstDetailView{
         collapsing_toolbar.setTitle(mData.getTitle());
         ImageLoaderUtils.display(getApplicationContext(), (ImageView) findViewById(R.id.detail_img),mData.getImgsrc());
         //下面初始化 Presenter 时，调用方法,实际上就通知model去获取数据
-        mfirstPresenter=new FirstDetailPresenterImpl(NewsDetailActivity.this,this);
+        mfirstPresenter=new NewDetailPresenterImpl(NewsDetailActivity.this,this);
         mfirstPresenter.loadContent(mData.getDocid());
     }
 

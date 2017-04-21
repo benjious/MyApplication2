@@ -16,12 +16,12 @@ import java.util.List;
  * Created by Benjious on 2017/4/17.
  */
 
-public class DouBanPresenterImpl implements DouBanListPresenter, OnLoadDouBanDataListener {
+public class DouBanListPresenterImpl implements DouBanListPresenter, OnLoadDouBanDataListener {
     private DouBanView mDouBanView;
     private DouBanModel mDouBanModel;
-    public static final String TAG = "DouBanPresenterImpl xyz";
+    public static final String TAG = "DouBanListPresenterImpl xyz";
 
-    public DouBanPresenterImpl(DouBanView douBanView) {
+    public DouBanListPresenterImpl(DouBanView douBanView) {
         mDouBanView = douBanView;
         mDouBanModel = new DouBanModelImpl();
 

@@ -15,11 +15,11 @@ import java.util.List;
  * Created by Benjious on 2016/12/31.
  */
 
-public class NewsListFragmentImpl implements FirstPresenter,OnloadFirstDataListener {
+public class NewsListPresenterImpl implements NewListPresenter,OnloadFirstDataListener {
     public FirstView mFirstView;
     public FirstModel mFirstModel;
-    public static final String TAG="NewsListFragmentImpl  ";
-    public NewsListFragmentImpl(FirstView view) {
+    public static final String TAG="NewsListPresenterImpl  ";
+    public NewsListPresenterImpl(FirstView view) {
         this.mFirstView=view;
         this.mFirstModel=new FirstModeImpl();
 

@@ -12,12 +12,12 @@ import com.example.benjious.myapplication.view.FirstDetailView;
  * Created by Benjious on 2017/4/16.
  */
 
-public class FirstDetailPresenterImpl implements FirstDetailPresenter,OnloadFirstDataDetialListener {
+public class NewDetailPresenterImpl implements NewDetailPresenter,OnloadFirstDataDetialListener {
     private Context mcontext;
     private FirstDetailView mfirstDetilView;
     private FirstModel mFirstModel;
 
-    public FirstDetailPresenterImpl(Context mcontext, FirstDetailView mfirstDetilView) {
+    public NewDetailPresenterImpl(Context mcontext, FirstDetailView mfirstDetilView) {
         this.mcontext = mcontext;
         this.mfirstDetilView = mfirstDetilView;
         mFirstModel = new FirstModeImpl();

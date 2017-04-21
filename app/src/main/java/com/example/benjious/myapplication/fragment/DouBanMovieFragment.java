@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +17,9 @@ import com.example.benjious.myapplication.R;
 import com.example.benjious.myapplication.activity.DouBanDetailActivity;
 import com.example.benjious.myapplication.adapter.DouBanAdapter;
 import com.example.benjious.myapplication.api.ConstantsImageUrl;
-import com.example.benjious.myapplication.api.Urls;
 import com.example.benjious.myapplication.bean.DouBanBean.SubjectBean;
 import com.example.benjious.myapplication.presenter.DouBanListPresenter;
-import com.example.benjious.myapplication.presenter.DouBanPresenterImpl;
+import com.example.benjious.myapplication.presenter.DouBanListPresenterImpl;
 import com.example.benjious.myapplication.util.ImgLoadUtil;
 import com.example.benjious.myapplication.view.DouBanView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -31,7 +27,6 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.type;
 import static android.media.CamcorderProfile.get;
 
 /**
@@ -119,7 +114,7 @@ public class DouBanMovieFragment extends Fragment implements DouBanView, DouBanA
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDouBanListPresenter = new DouBanPresenterImpl(this);
+        mDouBanListPresenter = new DouBanListPresenterImpl(this);
 
     }
 

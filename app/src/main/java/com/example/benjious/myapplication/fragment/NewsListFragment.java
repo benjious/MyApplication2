@@ -21,8 +21,8 @@ import com.example.benjious.myapplication.activity.NewsDetailActivity;
 import com.example.benjious.myapplication.adapter.FirstAdapter;
 import com.example.benjious.myapplication.bean.NewBean.DataBean;
 import com.example.benjious.myapplication.api.Urls;
-import com.example.benjious.myapplication.presenter.NewsListFragmentImpl;
-import com.example.benjious.myapplication.presenter.FirstPresenter;
+import com.example.benjious.myapplication.presenter.NewsListPresenterImpl;
+import com.example.benjious.myapplication.presenter.NewListPresenter;
 import com.example.benjious.myapplication.view.FirstView;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class NewsListFragment extends Fragment implements FirstView, SwipeRefres
     private int type = 0;
     private int pageIndex = 0;
     private ArrayList<DataBean> mData;
-    private FirstPresenter mFirstPresenter;
+    private NewListPresenter mNewListPresenter;
     private LinearLayoutManager mLayoutManager;
     private FirstAdapter mFirstAdapter;
 
@@ -92,7 +92,7 @@ public class NewsListFragment extends Fragment implements FirstView, SwipeRefres
             super.onScrollStateChanged(recyclerView, newState);
             //当没有滚动 并且 到达最后一个条目的时候,并且到了adapter存放的量
             if (newState == RecyclerView.SCROLL_STATE_IDLE && mLastVisibleItemPostion + 1 == mFirstAdapter.getItemCount() && mFirstAdapter.isShowFooter()) {
-                mFirstPresenter.loadData(type, pageIndex + Urls.PAZE_SIZE);
+                mNewListPresenter.loadData(type, pageIndex + Urls.PAZE_SIZE);
             }
 
         }
@@ -113,7 +113,7 @@ public class NewsListFragment extends Fragment implements FirstView, SwipeRefres
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirstPresenter = new NewsListFragmentImpl(this);
+        mNewListPresenter = new NewsListPresenterImpl(this);
         //保存数据
         type = getArguments().getInt("type");
 
@@ -200,7 +200,7 @@ public class NewsListFragment extends Fragment implements FirstView, SwipeRefres
             mData.clear();
         }
         //这个没有判断什么，直接进入加载通道
-        mFirstPresenter.loadData(type, pageIndex);
+        mNewListPresenter.loadData(type, pageIndex);
 
     }
 
