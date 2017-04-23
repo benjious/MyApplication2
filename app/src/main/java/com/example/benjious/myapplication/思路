@@ -1,0 +1,7 @@
+需求 : 完成电影详情页
+包括 : 1.另称 2.简介 3.RecycleView
+
+步骤 : 1.去加载MovieDetailBean 类
+       2.完成另称和简介的显示
+       3.movieDetail.getCasts() --是个 List<Person> 传给一个adapter,然后进行显示
+                    .getDirects()

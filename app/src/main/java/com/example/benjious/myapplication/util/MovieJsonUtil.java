@@ -1,5 +1,8 @@
 package com.example.benjious.myapplication.util;
 
+import android.util.Log;
+
+import com.example.benjious.myapplication.bean.DouBanBean.MovieDetail;
 import com.example.benjious.myapplication.bean.DouBanBean.SubjectBean;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -18,7 +21,7 @@ public class MovieJsonUtil {
     public static final String JSON_DATA = "...";
 
     /**
-     * 将获取到的json转换为新闻列表对象
+     * 将获取到的json转换为电影列表对象
      *
      * @param res
      * @param value
@@ -54,20 +57,22 @@ public class MovieJsonUtil {
         return beans;
     }
 
-    public static SubjectBean readJsonNewsDetailBeans(String res, String docId) {
-        SubjectBean subjectBean = null;
+    public static MovieDetail readJsonMovieDetailBeans(String res) {
+        MovieDetail movieDetail = null;
         try {
             JsonParser parser = new JsonParser();
             JsonObject jsonObj = parser.parse(res).getAsJsonObject();
-            JsonElement jsonElement = jsonObj.get(docId);
-            if (jsonElement == null) {
-                return null;
-            }
-            subjectBean = JsonUtils.deserialize(jsonElement.getAsJsonObject(), SubjectBean.class);
+//            JsonElement jsonElement = jsonObj.get(docId);
+//            if (jsonElement == null) {
+//                return null;
+//            }
+//            subjectBean = JsonUtils.deserialize(jsonElement.getAsJsonObject(), SubjectBean.class);
+            movieDetail = JsonUtils.deserialize(jsonObj, MovieDetail.class);
         } catch (Exception e) {
             // LogUtils.e(TAG, "readJsonNewsBeans error" , e);
+            Log.d(TAG, "xyz  readJsonMovieDetailBeans: "+e);
         }
-        return subjectBean;
+        return movieDetail;
     }
 
 

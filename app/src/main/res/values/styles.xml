@@ -54,6 +54,7 @@
         <item name="android:textColor">#99ffffff</item>
     </style>
 
-    <style name="DoubBanDetail" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="DoubBanDetail" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
 
 </resources>

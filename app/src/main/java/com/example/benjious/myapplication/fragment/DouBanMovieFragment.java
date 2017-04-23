@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +22,7 @@ import com.example.benjious.myapplication.api.ConstantsImageUrl;
 import com.example.benjious.myapplication.bean.DouBanBean.SubjectBean;
 import com.example.benjious.myapplication.presenter.DouBanListPresenter;
 import com.example.benjious.myapplication.presenter.DouBanListPresenterImpl;
+import com.example.benjious.myapplication.util.CommonUtils;
 import com.example.benjious.myapplication.util.ImgLoadUtil;
 import com.example.benjious.myapplication.view.DouBanView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -171,14 +174,10 @@ public class DouBanMovieFragment extends Fragment implements DouBanView, DouBanA
         intent.putExtras(bundle);
         //这里记得加上这一句，不然传不过去
         intent.setExtrasClassLoader(getActivity().getClassLoader());
-//        intent.putExtra("subjectBean", subjectBean);
-//
-//        View intoView = view.findViewById(R.id.ll_one_item);
-//        ActivityOptionsCompat options =
-//                ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-//                        intoView, getString(R.string.transition_news_img));
-//        ActivityCompat.startActivity(getActivity(),intent,options.toBundle());
-        //Intent intent = new Intent(getActivity(),DouBanDetailActivity.class);
-        startActivity(intent);
+        View intoView = view.findViewById(R.id.ll_one_item);
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                        intoView, CommonUtils.getString(R.string.transition_movie_img));//与xml文件对应
+        ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
     }
 }

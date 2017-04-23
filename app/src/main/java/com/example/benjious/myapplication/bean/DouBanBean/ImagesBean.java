@@ -3,7 +3,6 @@ package com.example.benjious.myapplication.bean.DouBanBean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 
 /**
  * Created by Benjious on 2017/4/17.

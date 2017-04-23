@@ -14,6 +14,7 @@ import com.example.benjious.myapplication.R;
 import com.example.benjious.myapplication.bean.DouBanBean.PersonBean;
 import com.example.benjious.myapplication.bean.DouBanBean.SubjectBean;
 import com.example.benjious.myapplication.util.ImageLoaderUtils;
+import com.example.benjious.myapplication.util.ImgLoadUtil;
 import com.example.benjious.myapplication.util.StringFormatTest;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
@@ -99,7 +100,9 @@ public class DouBanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((ItemViewHolder) holder).mMovType.setText(revertType(dataBean.getGenres()));
             ((ItemViewHolder) holder).mMovRate.setText(String.valueOf(dataBean.getRating().getAverage()));
             ((ItemViewHolder) holder).lineColor.setBackgroundColor(StringFormatTest.randomColor());
-            ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mMovie_img, dataBean.getImages().getLarge());
+           // ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mMovie_img, dataBean.getImages().getLarge());
+            //使用这个,可以缓存图片,方便电影详情页使用
+            ImgLoadUtil.showMovieImg(((ItemViewHolder) holder).mMovie_img,dataBean.getImages().getLarge());
 
             ViewHelper.setScaleX(holder.itemView, 0.8f);
             ViewHelper.setScaleY(holder.itemView, 0.8f);

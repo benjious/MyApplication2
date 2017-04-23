@@ -11,4 +11,7 @@
     <dimen name="movie_detail_height">165dp</dimen>
     <dimen name="nav_bar_height">56dp</dimen>
     <dimen name="nav_bar_height_more">58dp</dimen>
+    <!--书籍详情图片的宽高-->
+    <dimen name="book_detail_width">120dp</dimen>
+    <dimen name="book_detail_height">165dp</dimen>
 </resources>

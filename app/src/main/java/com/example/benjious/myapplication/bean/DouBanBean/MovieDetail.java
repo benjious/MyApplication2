@@ -145,7 +145,7 @@ public class MovieDetail {
         this.title = title;
     }
 
-    public Object getDo_count() {
+    public int getDo_count() {
         return do_count;
     }
 
@@ -161,7 +161,7 @@ public class MovieDetail {
         this.share_url = share_url;
     }
 
-    public Object getSeasons_count() {
+    public int getSeasons_count() {
         return seasons_count;
     }
 
@@ -241,7 +241,7 @@ public class MovieDetail {
         this.ratings_count = ratings_count;
     }
 
-    public List<?> getCountries() {
+    public List<String> getCountries() {
         return countries;
     }
 
@@ -257,7 +257,7 @@ public class MovieDetail {
         this.genres = genres;
     }
 
-    public List<?> getCasts() {
+    public List<PersonBean> getCasts() {
         return casts;
     }
 
@@ -281,10 +281,38 @@ public class MovieDetail {
         this.aka = aka;
     }
 
-    public static class RatingBean {
-    }
 
-    public static class ImagesBean {
-    }
 
+    @Override
+    public String toString() {
+        return "MovieDetail{" +
+                "rating=" + rating +
+                ", reviews_count=" + reviews_count +
+                ", wish_count=" + wish_count +
+                ", douban_site='" + douban_site + '\'' +
+                ", year='" + year + '\'' +
+                ", images=" + images +
+                ", alt='" + alt + '\'' +
+                ", id='" + id + '\'' +
+                ", mobile_url='" + mobile_url + '\'' +
+                ", title='" + title + '\'' +
+                ", do_count=" + do_count +
+                ", share_url='" + share_url + '\'' +
+                ", seasons_count=" + seasons_count +
+                ", schedule_url='" + schedule_url + '\'' +
+                ", episodes_count=" + episodes_count +
+                ", collect_count=" + collect_count +
+                ", current_season=" + current_season +
+                ", original_title='" + original_title + '\'' +
+                ", summary='" + summary + '\'' +
+                ", subtype='" + subtype + '\'' +
+                ", comments_count=" + comments_count +
+                ", ratings_count=" + ratings_count +
+                ", countries=" + countries +
+                ", genres=" + genres +
+                ", casts=" + casts +
+                ", directors=" + directors +
+                ", aka=" + aka +
+                '}';
+    }
 }

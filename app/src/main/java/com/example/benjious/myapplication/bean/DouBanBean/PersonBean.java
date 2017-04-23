@@ -14,12 +14,22 @@ public class PersonBean implements Parcelable {
      * avatars : {"small":"http://img7.doubanio.com/img/celebrity/small/17525.jpg","large":"http://img7.doubanio.com/img/celebrity/large/17525.jpg","medium":"http://img7.doubanio.com/img/celebrity/medium/17525.jpg"}
      * name : 蒂姆·罗宾斯
      * id : 1054521
+     * type : 导演或是演员
      */
 
     private String alt;
     private AvatarsBean avatars;
     private String name;
     private String id;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getAlt() {
         return alt;

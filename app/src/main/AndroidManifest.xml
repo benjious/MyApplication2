@@ -20,11 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.NewsDetailActivity"
-                  android:theme="@style/AppTheme.NoActionBar"
+        <activity
+            android:name=".activity.NewsDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name=".activity.DouBanDetailActivity"
-        android:theme="@style/DoubBanDetail"/>
+        <activity
+            android:name=".activity.DouBanDetailActivity"
+            android:theme="@style/DoubBanDetail"/>
     </application>
 
 </manifest>

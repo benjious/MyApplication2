@@ -2,14 +2,14 @@ package com.example.benjious.myapplication.activity;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,21 +17,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.benjious.myapplication.R;
+import com.example.benjious.myapplication.adapter.MovieDetailAdapter;
 import com.example.benjious.myapplication.bean.DouBanBean.MovieDetail;
 import com.example.benjious.myapplication.bean.DouBanBean.SubjectBean;
+import com.example.benjious.myapplication.presenter.MovieDetailPresenter;
+import com.example.benjious.myapplication.presenter.MovieDetailPresenterImpl;
 import com.example.benjious.myapplication.util.CommonUtils;
-import com.example.benjious.myapplication.util.ImageLoaderUtils;
+import com.example.benjious.myapplication.util.ImgLoadUtil;
 import com.example.benjious.myapplication.util.StringFormatUtil;
 import com.example.benjious.myapplication.util.test.StatusBarUtils;
+import com.example.benjious.myapplication.view.MovieDetailView;
 import com.example.benjious.myapplication.view.custom.MyNestedScrollView;
+import com.example.benjious.myapplication.view.statusbar.StatusBarUtil;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
@@ -43,7 +50,7 @@ import static com.example.benjious.myapplication.view.statusbar.StatusBarUtil.ge
  * Created by Benjious on 2017/4/19.
  */
 
-public class DouBanDetailActivity extends AppCompatActivity {
+public class DouBanDetailActivity extends AppCompatActivity implements MovieDetailView {
     private ImageView mImgItemBg;
 
     private ImageView mIvOnePhoto;
@@ -66,8 +73,11 @@ public class DouBanDetailActivity extends AppCompatActivity {
 
     private LinearLayout mLlHeaderView;
 
-    private TextView mTvOneTitle;
-
+    //另称
+    private TextView mOtherName;
+    //简介
+    private TextView mMovieSummery;
+    //演员名单
     private XRecyclerView mXrvCast;
 
     private MyNestedScrollView mNsvScrollview;
@@ -78,20 +88,21 @@ public class DouBanDetailActivity extends AppCompatActivity {
 
     private RelativeLayout mRlTitleHead;
 
+    private ProgressBar mProgressBar;
+    private MovieDetailAdapter mAdapter;
+
     public static final String TAG = "DBDA_xyz";
     public static final String SUB = "subjects";
 
     private int slidingDistance;
     private SubjectBean subjectsBean;
+    private MovieDetailPresenter mMovieDetailPresenter;
 
 
     // 这个是高斯图背景的高度
     private int imageBgHeight;
-    // 更多信息url
-    private String mMoreUrl;
-    // 影片name
-    private String mMovieName;
-    private MovieDetail mAdapter;
+    //date数据
+    private MovieDetail mMovieDetail;
 
 
     @Override
@@ -100,7 +111,6 @@ public class DouBanDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +121,6 @@ public class DouBanDetailActivity extends AppCompatActivity {
         }
 
         initSlideShapeTheme();
-
         // 数据配置
         setTitleBar();
         setHeaderData(subjectsBean);
@@ -131,13 +140,25 @@ public class DouBanDetailActivity extends AppCompatActivity {
         getTvOneTitle = (TextView) findViewById(R.id.tv_one_origin_title);
         mLlOneItem = (LinearLayout) findViewById(R.id.ll_one_item);
         mLlHeaderView = (LinearLayout) findViewById(R.id.ll_Header_view);
-        mTvOneTitle = (TextView) findViewById(R.id.tv_one_title);
-        mXrvCast = (XRecyclerView) findViewById(R.id.xrv_cast);
         mNsvScrollview = (MyNestedScrollView) findViewById(R.id.nsv_scrollview);
         mIvTitleHeadBg = (ImageView) findViewById(R.id.iv_title_head_bg);
         mTitleToolBar = (Toolbar) findViewById(R.id.title_tool_bar);
         mRlTitleHead = (RelativeLayout) findViewById(R.id.rl_title_head);
 
+        mProgressBar = (ProgressBar) findViewById(R.id.progress);
+        mOtherName = (TextView) findViewById(R.id.tv_one_title);
+        mXrvCast = (XRecyclerView) findViewById(R.id.xrv_cast);
+        mMovieSummery = (TextView) findViewById(R.id.movie_summery);
+
+        mXrvCast.setVisibility(View.VISIBLE);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(DouBanDetailActivity.this);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mXrvCast.setLayoutManager(mLayoutManager);
+        mXrvCast.setPullRefreshEnabled(false);
+        mXrvCast.setLoadingMoreEnabled(false);
+        // 需加，不然滑动不流畅
+        mXrvCast.setNestedScrollingEnabled(false);
+        mXrvCast.setHasFixedSize(false);
 
     }
 
@@ -146,9 +167,9 @@ public class DouBanDetailActivity extends AppCompatActivity {
      * 2.设置adapter
      */
     private void loadMovieDetail() {
-
+        mMovieDetailPresenter = new MovieDetailPresenterImpl(this, this);
+        mMovieDetailPresenter.load(subjectsBean.getId());
     }
-
 
 
     private void setTitleBar() {
@@ -173,7 +194,9 @@ public class DouBanDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+//                DouBanDetailActivity.this.finish();
             }
+
         });
 
         mTitleToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -181,7 +204,6 @@ public class DouBanDetailActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.actionbar_more:// 更多信息
-
                         break;
                 }
                 return false;
@@ -192,17 +214,15 @@ public class DouBanDetailActivity extends AppCompatActivity {
     /**
      * 初始化滑动渐变
      */
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void initSlideShapeTheme() {
 
-        String url = subjectsBean.getImages().getMedium();
+        String url = subjectsBean.getImages().getSmall();
         Log.d(TAG, "xyz  initSlideShapeTheme: 看这里 " + url);
-        setImgHeaderBg(mImgItemBg, url);
+        setImgHeaderBg(url);
+
         // toolbar 的高
         int toolbarHeight = mTitleToolBar.getLayoutParams().height;
-        Log.i(TAG, "toolbar_height:" + toolbarHeight);
         final int headerBgHeight = toolbarHeight + getStatusBarHeight(this);
-        Log.i(TAG, "headerBgHeight:" + headerBgHeight);
 
         // 使背景图向上移动到图片的最低端，保留（titlebar+statusbar）的高度
         ViewGroup.LayoutParams params = mIvTitleHeadBg.getLayoutParams();
@@ -216,7 +236,7 @@ public class DouBanDetailActivity extends AppCompatActivity {
         // 上移背景图片，使空白状态栏消失(这样下方就空了状态栏的高度)
         if (mImgItemBg != null) {
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) mImgItemBg.getLayoutParams();
-            layoutParams.setMargins(0, -getStatusBarHeight(this), 0, 0);
+            layoutParams.setMargins(0, -StatusBarUtil.getStatusBarHeight(this), 0, 0);
         }
 
         ViewGroup.LayoutParams imgItemBgparams = mImgItemBg.getLayoutParams();
@@ -228,6 +248,34 @@ public class DouBanDetailActivity extends AppCompatActivity {
 
         initNewSlidingParams();
     }
+
+    private void setImgHeaderBg(final String imgUrl) {
+        if (!TextUtils.isEmpty(imgUrl)) {
+
+            // 高斯模糊背景 原来 参数：12,5  23,4
+            Glide.with(this).load(imgUrl)
+                    .error(R.drawable.stackblur_default)
+                    .bitmapTransform(new BlurTransformation(this, 23, 4))
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            mTitleToolBar.setBackgroundColor(Color.TRANSPARENT);
+                            mIvTitleHeadBg.setImageAlpha(0);
+                            mIvTitleHeadBg.setVisibility(View.VISIBLE);
+                            Log.d(TAG, "xyz  setImgHeaderBg: 里面"+imgUrl);
+                            return false;
+                        }
+                    }).into(mIvTitleHeadBg);
+        }
+    }
+
+
+
 
     private void initNewSlidingParams() {
         int titleBarAndStatusHeight = (int) (CommonUtils.getDimens(R.dimen.nav_bar_height) + getStatusBarHeight(this));
@@ -273,8 +321,9 @@ public class DouBanDetailActivity extends AppCompatActivity {
 
 
     public void setHeaderData(SubjectBean headerData) {
-        ImageLoaderUtils.display(this, mIvOnePhoto, headerData.getImages().getMedium());
-
+       // ImageLoaderUtils.display(this, mIvOnePhoto, headerData.getImages().getMedium());
+        ImgLoadUtil.showMovieImg(mIvOnePhoto,headerData.getImages().getLarge());
+        ImgLoadUtil.showImgBg(mImgItemBg,subjectsBean.getImages().getMedium());
         mTvOneRatingRate.setText(headerData.getRating().getStars());
         mTvOneRatingNumber.setText(String.valueOf(headerData.getCollect_count()));
         mTvOneDirectors.setText(StringFormatUtil.formatName(headerData.getDirectors()));
@@ -284,31 +333,66 @@ public class DouBanDetailActivity extends AppCompatActivity {
         getTvOneTitle.setText(headerData.getOriginal_title());
     }
 
-    private void setImgHeaderBg(ImageView imgView, String url) {
-        if (imgView != null) {
-            // 高斯模糊背景 原来 参数：12,5  23,4
-            Glide.with(this).load(url)
-                    .error(R.drawable.stackblur_default)
-                    .bitmapTransform(new BlurTransformation(this, 23, 4)).listener(new RequestListener<String, GlideDrawable>() {
-                @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                    return false;
-                }
 
-                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    mTitleToolBar.setBackgroundColor(Color.TRANSPARENT);
-                    mIvTitleHeadBg.setImageAlpha(0);
-                    mIvTitleHeadBg.setVisibility(View.VISIBLE);
-//                    Log.d(TAG, "xyz  onResourceReady: "+url);
-                    return false;
-                }
-            }).into(imgView);
-        }
+
+    @Override
+    public void showDetilContent(MovieDetail movieDetail) {
+        this.mMovieDetail = movieDetail;
+        setTextViewContent();
+        transformData(movieDetail);
+
     }
 
-    public void setAdapter(MovieDetail adapter) {
-        mAdapter = adapter;
+    @Override
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void hideprogress() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showFailure(Exception e, String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 异步线程转换数据
+     */
+    private void transformData(final MovieDetail movieDetailBean) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < movieDetailBean.getDirectors().size(); i++) {
+                    movieDetailBean.getDirectors().get(i).setType("导演");
+                }
+                for (int i = 0; i < movieDetailBean.getCasts().size(); i++) {
+                    movieDetailBean.getCasts().get(i).setType("演员");
+                }
+
+                DouBanDetailActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setAdapter();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    public void setTextViewContent() {
+        mOtherName.setText(StringFormatUtil.formatGenres(mMovieDetail.getAka()));
+        mMovieSummery.setText(mMovieDetail.getSummary());
+    }
+
+    private void setAdapter() {
+        mAdapter = new MovieDetailAdapter(this);
+        mXrvCast.setAdapter(mAdapter);
+        mAdapter.setData(mMovieDetail.getDirectors());
+        mAdapter.setData(mMovieDetail.getCasts());
+
+    }
+
 }

@@ -43,5 +43,10 @@
     <color name="colorTransparent">#00000000</color>
     <!--分割线-->
     <color name="colorLine">#EBEBEB</color>
+    <!--首页item文字颜色-->
+    <color name="colorSubtitle">#999</color>
+    <!--item的分割线-->
+    <color name="colorLineItem">#FFDDDDDD</color>
+
 
 </resources>

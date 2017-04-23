@@ -23,7 +23,7 @@ public static final String TAG="DouBanModelImpl xyz =";
             public void onSuccess(String response) {
 
                 List<SubjectBean> beanList= MovieJsonUtil.readJsonDataBeans(response,"subjects");
-                Log.d(TAG, "xyz  onSuccess: 返回了数据"+beanList);
+//                Log.d(TAG, "xyz  onSuccess: 返回了数据"+beanList);
                 dataListener.onSuccess(beanList);
             }
 
@@ -32,7 +32,7 @@ public static final String TAG="DouBanModelImpl xyz =";
                 dataListener.onFailure("加载失败",e);
             }
         };
-        Log.d(TAG, "xyz  loadData: 有没有执行到这里");
+//        Log.d(TAG, "xyz  loadData: 有没有执行到这里");
         OkHttpUtils.get(url,resultCallback);
     }
 
