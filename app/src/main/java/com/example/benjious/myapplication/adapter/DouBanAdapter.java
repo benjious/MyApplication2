@@ -133,9 +133,7 @@ public class DouBanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public ItemViewHolder(View v) {
             super(v);
-//            mTitle = (TextView) v.findViewById(R.id.tvTitle);
-//            mDesc = (TextView) v.findViewById(R.id.tvDesc);
-//            mNewsImg = (ImageView) v.findViewById(R.id.ivNews);
+
             mMovie_img = (ImageView) v.findViewById(R.id.iv_one_photo);
             mMovZhu = (TextView) v.findViewById(R.id.tv_one_casts);
             mMovDao = (TextView) v.findViewById(R.id.tv_one_directors);
